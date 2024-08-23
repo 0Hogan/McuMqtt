@@ -3,7 +3,6 @@
 
 #include <cstdint>
 
-// #include "Client.h"
 #include "PubSubBase.h"
 
 namespace Mqtt
@@ -15,8 +14,8 @@ namespace Mqtt
     {
     public:
         virtual void subscribe(msgCallback callback) = 0;
-        
-    private:
+
+    protected:
         Subscriber(const std::string &topicName) : PubSubBase(topicName) {}
         Subscriber(const char* topicName) : PubSubBase(topicName) {}
     };

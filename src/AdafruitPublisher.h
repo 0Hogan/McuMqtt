@@ -1,13 +1,12 @@
 #ifndef MQTT_ADAFRUIT_PUBLISHER_H
 #define MQTT_ADAFRUIT_PUBLISHER_H
 
-#include "Publisher.h"
-
-#include "Adafruit_MQTT.h"
-#include "Adafruit_MQTT_Client.h"
-
-#include <memory>
 #include <string>
+
+#include <Adafruit_MQTT.h>
+#include <Adafruit_MQTT_Client.h>
+
+#include "Publisher.h"
 
 namespace Mqtt
 {
@@ -15,16 +14,18 @@ namespace Mqtt
     class AdafruitPublisher : public Publisher<msgType>
     {
     public:
-        AdafruitPublisher(std::shared_ptr<Adafruit_MQTT_Client> adafruitClient, const std::string &topicName) 
+        AdafruitPublisher(Adafruit_MQTT_Client* adafruitClient, const std::string &topicName)
             : Publisher<msgType>(topicName), m_adafruitClient(adafruitClient)
         {
-            m_adafruitPublisher = Adafruit_MQTT_Publish(m_adafruitClient, topicName);
+            delete m_adafruitPublisher;
+            m_adafruitPublisher = new Adafruit_MQTT_Publish(m_adafruitClient, topicName.c_str());
         }
 
-        AdafruitPublisher(std::shared_ptr<Adafruit_MQTT_Client> adafruitClient, const char* topicName)
+        AdafruitPublisher(Adafruit_MQTT_Client* adafruitClient, const char* topicName)
             : Publisher<msgType>(topicName), m_adafruitClient(adafruitClient)
         {
-            m_adafruitPublisher = Adafruit_MQTT_Publish(adafruitClient, topicName);
+            delete m_adafruitPublisher;
+            m_adafruitPublisher = new Adafruit_MQTT_Publish(adafruitClient, topicName);
         }
 
         bool publish(const msgType &msg) const override
@@ -32,15 +33,15 @@ namespace Mqtt
             uint8_t numTriesRemaining = 3;
             while (!m_adafruitClient->connected() && numTriesRemaining > 0)
             {
-                m_adafruitClient->connectServer();
+                m_adafruitClient->connect();
                 numTriesRemaining--;
             }
-            return m_adafruitPublisher.publish(msg.getPayload());
+            return m_adafruitPublisher->publish(msg.getPayload());
         }
 
     private:
-        Adafruit_MQTT_Publish m_adafruitPublisher;
-        std::shared_ptr<Adafruit_MQTT_Client> m_adafruitClient = nullptr;
+        Adafruit_MQTT_Publish* m_adafruitPublisher = nullptr;
+        Adafruit_MQTT_Client* m_adafruitClient = nullptr;
     };
 }
 

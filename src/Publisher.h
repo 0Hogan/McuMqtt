@@ -14,7 +14,7 @@ namespace Mqtt
     {
     public:
         virtual bool publish(const msgType &msg) const = 0;
-        
+
     protected:
         Publisher(const std::string &topicName) : PubSubBase(topicName) {}
         Publisher(const char* topicName) : PubSubBase(topicName) {}

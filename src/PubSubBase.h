@@ -12,10 +12,10 @@ namespace Mqtt
         std::string getTopicName() const { return m_topicName; }
 
     protected:
-        PubSubBase(const std::string &topicName) : m_topicName(topicName) {}
+        PubSubBase(const std::string &topicName) : m_topicName(topicName.c_str()) {}
         PubSubBase(const char* topicName) : m_topicName(topicName) {}
 
-        std::string m_topicName;
+        const char* m_topicName = nullptr;
     };
 }
 

@@ -9,7 +9,7 @@ const uint16_t TIMEOUT_S = 5;
 const uint16_t MS_PER_S = 1000;
 
 WiFiClient wifiClient;
-std::shared_ptr<Adafruit_MQTT_Client> mqttClient = 
+std::shared_ptr<Adafruit_MQTT_Client> mqttClient =
     std::make_shared<Adafruit_MQTT_Client>(&wifiClient, "192.168.1.64", 1883, "mhogan", "");
 
 Mqtt::AdafruitSubscriber<Mqtt::LogMessage> logSubscriber(mqttClient, "/logs");
