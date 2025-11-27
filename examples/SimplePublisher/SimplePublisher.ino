@@ -1,8 +1,7 @@
-#include "AdafruitPublisher.h"
-#include "AdafruitSubscriber.h"
-#include "LogMessage.h"
+#include <MqttAdafruit.hpp>
+#include <LogMessage.h>
 
-#include "Adafruit_MQTT_Client.h"
+#include <Adafruit_MQTT_Client.h>
 #include <WiFi.h>
 
 const uint16_t TIME_BETWEEN_MSGS_S = 5;

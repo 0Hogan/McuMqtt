@@ -6,7 +6,7 @@
 #include <Adafruit_MQTT.h>
 #include <Adafruit_MQTT_Client.h>
 
-#include "Publisher.h"
+#include "Publisher.hpp"
 
 namespace Mqtt
 {

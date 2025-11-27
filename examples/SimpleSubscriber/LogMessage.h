@@ -1,7 +1,7 @@
 #ifndef MQTT_LOG_MESSAGE_H
 #define MQTT_LOG_MESSAGE_H
 
-#include "Message.h"
+#include <MqttMessage.h>
 
 namespace Mqtt
 {

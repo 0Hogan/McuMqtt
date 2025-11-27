@@ -6,7 +6,7 @@
 #include <Adafruit_MQTT.h>
 #include <Adafruit_MQTT_Client.h>
 
-#include "Subscriber.h"
+#include "Subscriber.hpp"
 
 
 namespace Mqtt
@@ -19,17 +19,17 @@ namespace Mqtt
      * @todo Need to add an unsubscribe method.
      */
     template<typename msgType>
-    class AdafruitSubscriber : public Subscriber<msgType>
+    class EspSubscriber : public Subscriber<msgType>
     {
     public:
-        AdafruitSubscriber(Adafruit_MQTT_Client* adafruitClient, const std::string &topicName)
+        EspSubscriber(Adafruit_MQTT_Client* adafruitClient, const std::string &topicName)
             : Subscriber<msgType>(topicName), m_adafruitClient(adafruitClient)
         {
             delete m_adafruitSubscriber;
             m_adafruitSubscriber = new Adafruit_MQTT_Subscribe(m_adafruitClient, topicName.c_str());
         }
 
-        AdafruitSubscriber(std::shared_ptr<Adafruit_MQTT_Client> adafruitClient, const char* topicName)
+        EspSubscriber(std::shared_ptr<Adafruit_MQTT_Client> adafruitClient, const char* topicName)
             : Subscriber<msgType>(topicName), m_adafruitClient(adafruitClient)
         {
             delete m_adafruitSubscriber;
@@ -51,6 +51,11 @@ namespace Mqtt
             {
                 m_adafruitClient->connect();
             }
+        }
+
+        void unsubscribe() override
+        {
+            /// \todo Implement unsubscribe logic
         }
 
     private:

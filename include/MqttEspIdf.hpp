@@ -1,0 +1,5 @@
+#include "../src/EspClient.hpp"
+#include "../src/Publisher.hpp"
+#include "../src/Subscriber.hpp"
+#include "../src/PubSubBase.hpp"
+#include "../src/Client.hpp"
