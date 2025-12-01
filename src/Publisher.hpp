@@ -5,6 +5,7 @@
 #include <string>
 
 #include "PubSubBase.hpp"
+#include "Client.hpp"
 
 namespace Mqtt
 {
@@ -15,10 +16,10 @@ namespace Mqtt
     };
 
     template<typename MsgType>
-    class Publisher : public PubSubBase<MsgType>
+    class Publisher : public PubSubBase
     {
     public:
-        Publisher(Client& client) : PubSubBase<MsgType>(client) {}
+        Publisher(Mqtt::Client& client) : PubSubBase(client) {}
 
         bool publish(const MsgType &msg) const
         {

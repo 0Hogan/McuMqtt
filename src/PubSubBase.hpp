@@ -18,6 +18,13 @@ namespace Mqtt
     class PubSubBase
     {
     public:
+        /// \todo Should the topic name be stored here instead of in the MsgType?
+        ///       Probably, since we might have multiple topics per MsgType - e.g.
+        ///       /lights/kitchen, /lights/livingroom, etc.(all same MsgType, but
+        ///       different instances/endpoints). Introduces issues with memory 
+        ///       management for string vs. c-string, but probably fine since there
+        ///       won't be a ton of copies. Also will mean that a PubSubBase* can be
+        ///       used to track all publishers/subscribers regardless of MsgType.
         static const char* getTopicName() const { return MsgType::TOPIC_NAME; }
 
     protected:
